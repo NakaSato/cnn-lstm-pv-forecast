@@ -1,0 +1,15 @@
+The dataset covers a 2-day period:
+
+Starting timestamp: 2025-04-04 00:01:56
+Ending timestamp: 2025-04-05 11:46:16
+This gives you approximately 35.75 hours of continuous data for the single inverter (INVERTER_01). The data includes various measurements taken at regular intervals (approximately every 2-3 minutes), including:
+
+AC Power
+DC Power
+Voltage and Current
+Frequency
+Efficiency
+Status flags
+The dataset captures a full day-night cycle which is valuable for PV forecasting as it shows the complete generation pattern. The data shows zero power production during nighttime (roughly from evening to early morning) and varying levels of generation during daylight hours, with peak production occurring around midday.
+
+If you want to use this for training your CNN-LSTM model for PV forecasting, this 2-day sample provides a good starting point, but for robust forecasting models, you would typically want several weeks or months of historical data to capture various weather conditions and seasonal patterns. Do you have access to additional data beyond this 2-day period?
