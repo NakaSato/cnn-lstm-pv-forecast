@@ -1,0 +1,39 @@
+The error message shows that the CNN model input shape doesn't match the data shape:
+
+- Expected input shape: (None, 24, 1)
+- Actual input shape: (None, 24, 8)
+
+To fix this in your models.py file, modify the create_cnn() method. The current implementation likely has a hardcoded input shape with a single feature, but your data has 8 features.
+
+Update your CNN model creation code to look something like this:
+
+```python
+def create_cnn(self, sequence_length, num_features):
+    """Create a CNN model for weather pattern classification."""
+    model = Sequential([
+        # Note: input_shape should be (sequence_length, num_features)
+        Conv1D(filters=64, kernel_size=3, activation='relu', 
+               input_shape=(sequence_length, num_features)),
+        MaxPooling1D(pool_size=2),
+        Dropout(0.2),
+        Flatten(),
+        Dense(100, activation='relu'),
+        Dense(1, activation='sigmoid')
+    ])
+    
+    model.compile(optimizer='adam',
+                 loss='binary_crossentropy',
+                 metrics=['accuracy'])
+    
+    return model
+```
+
+Then update your initialization code to pass the feature dimension:
+
+```python
+# In your initialization code or train method:
+n_features = X.shape[-1]  # Get the number of features from the data
+self.cnn = self.create_cnn(sequence_length=sequence_length, num_features=n_features)
+```
+
+This makes your model flexible to handle any number of features in the input data.
